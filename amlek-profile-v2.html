@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amlek Chirayath Davis — Robotics Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@300;400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070f;--surface:#0d0d1a;--surface2:#12121e;--surface3:#16162a;
+  --gold:#c9a96e;--gold-l:#e8c990;--gold-d:#7a6040;
+  --cream:#f0ead8;--muted:#50506a;--accent:#3d6b9e;--green:#4ade80;
+  --red:#f87171;--blue:#60a5fa;--yellow:#fbbf24;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:#ccc8bc;font-family:'DM Mono',monospace;overflow-x:hidden;cursor:none;}
+.cur{width:7px;height:7px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;}
+.cur-ring{width:28px;height:28px;border:1px solid rgba(201,169,110,.45);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;background:rgba(7,7,15,.85);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,169,110,.07);}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;color:var(--gold);letter-spacing:.07em;}
+.nav-links{display:flex;gap:2.5rem;}
+.nav-links a{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-badge{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .9rem;border:1px solid rgba(201,169,110,.25);color:var(--gold-d);}
+
+/* HERO */
+.hero{min-height:100vh;padding:9rem 4rem 5rem;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.02) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);pointer-events:none;}
+.hero-eyebrow{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold-d);}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:300;line-height:1.07;color:var(--cream);margin-bottom:1.6rem;}
+h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:.78rem;line-height:2.1;color:var(--muted);max-width:460px;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap;}
+.btn-g{padding:.8rem 2rem;background:var(--gold);color:var(--bg);font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:all .3s;}
+.btn-g:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,110,.2);}
+.btn-o{padding:.8rem 2rem;border:1px solid rgba(201,169,110,.3);color:var(--muted);font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:all .3s;}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);}
+
+/* Profile card */
+.pcard{background:var(--surface2);border:1px solid rgba(201,169,110,.12);padding:2.2rem;position:relative;overflow:hidden;}
+.pcard::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(201,169,110,.05),transparent 60%);}
+.pc-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:1.2rem;}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:.2rem;}
+.pc-role{font-size:.68rem;color:var(--gold);letter-spacing:.1em;margin-bottom:1.5rem;}
+.pc-div{height:1px;background:rgba(201,169,110,.1);margin-bottom:1.5rem;}
+.pc-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+.chip{font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .7rem;border:1px solid rgba(201,169,110,.15);color:var(--gold-d);transition:all .3s;}
+.chip:hover{border-color:var(--gold);color:var(--gold);}
+.pc-stat-row{display:flex;gap:1.5rem;}
+.pc-stat{text-align:center;}
+.pc-stat-n{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--gold);display:block;line-height:1;}
+.pc-stat-l{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+.status-row{display:flex;align-items:center;gap:.6rem;font-size:.6rem;color:var(--muted);margin-top:1.5rem;}
+.s-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(74,222,128,.6);animation:pls 2s infinite;}
+@keyframes pls{0%,100%{box-shadow:0 0 8px rgba(74,222,128,.6);}50%{box-shadow:0 0 14px rgba(74,222,128,.9);}}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,169,110,.1);border-bottom:1px solid rgba(201,169,110,.1);background:var(--surface);}
+.stat{padding:2.2rem 2rem;text-align:center;border-right:1px solid rgba(201,169,110,.07);}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;color:var(--gold);display:block;line-height:1;margin-bottom:.3rem;}
+.stat-l{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+
+/* SECTION COMMONS */
+section{padding:6rem 4rem;}
+.eyebrow{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d);display:flex;align-items:center;gap:1rem;margin-bottom:.8rem;}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--gold-d);}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:3.5rem;}
+h2 em{font-style:italic;color:var(--gold);}
+
+/* ══ PROJECT CARDS ══ */
+.projects-section{background:var(--surface);}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(201,169,110,.08);}
+
+.proj-card{background:var(--bg);padding:0;overflow:hidden;position:relative;transition:background .4s;}
+.proj-card:hover{background:var(--surface2);}
+.proj-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.proj-card:hover::after{transform:scaleX(1);}
+
+/* Tab bar */
+.proj-tabs{display:flex;border-bottom:1px solid rgba(201,169,110,.1);}
+.ptab{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.9rem 1.5rem;color:var(--muted);cursor:none;transition:all .3s;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.ptab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.ptab:hover{color:var(--cream);}
+
+.proj-body{padding:2.2rem;}
+
+/* Tab panels */
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* Info panel */
+.proj-num{font-size:.58rem;letter-spacing:.2em;color:var(--gold-d);margin-bottom:1.2rem;}
+.proj-icon{font-size:1.8rem;margin-bottom:1rem;display:block;}
+.proj-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;color:var(--cream);margin-bottom:.7rem;line-height:1.2;}
+.proj-desc{font-size:.73rem;line-height:1.9;color:var(--muted);margin-bottom:1.5rem;}
+.comp-label{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;}
+.p-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem;}
+.p-tag{font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(201,169,110,.14);color:var(--gold-d);}
+.proj-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:color .3s;border-bottom:1px solid rgba(201,169,110,.12);padding-bottom:2px;}
+.proj-link:hover{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* Code panel */
+.code-panel{background:#060610;padding:1.5rem;font-size:.68rem;line-height:1.75;overflow-x:auto;max-height:380px;overflow-y:auto;}
+.code-panel::-webkit-scrollbar{width:4px;height:4px;}
+.code-panel::-webkit-scrollbar-track{background:transparent;}
+.code-panel::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px;}
+.code-line{display:block;white-space:pre;}
+.ln{color:#2a2a45;user-select:none;margin-right:1.5rem;display:inline-block;width:28px;text-align:right;}
+.kw{color:#c792ea;}.fn{color:#82aaff;}.str{color:#c3e88d;}.cm{color:#3a4a55;font-style:italic;}.num{color:var(--gold);}.pp{color:#f78c6c;}.var{color:#eeffff;}
+
+/* Diagram panel */
+.diagram-panel{padding:2rem;background:#07070f;min-height:340px;display:flex;align-items:center;justify-content:center;}
+.diagram-panel svg{max-width:100%;height:auto;}
+
+/* Simulation panel */
+.sim-panel{padding:1.5rem;background:#06060e;}
+.sim-title{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:1.2rem;}
+.sim-screen{background:#000;border:1px solid rgba(201,169,110,.15);padding:1.2rem;margin-bottom:1rem;font-family:'DM Mono',monospace;font-size:.72rem;color:#4ade80;min-height:80px;line-height:1.7;}
+.sim-controls{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;}
+.sim-btn{padding:.5rem 1.2rem;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);color:var(--gold);font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.sim-btn:hover{background:rgba(201,169,110,.15);border-color:var(--gold);}
+.sim-btn.active{background:rgba(74,222,128,.1);border-color:var(--green);color:var(--green);}
+.sim-led{width:18px;height:18px;border-radius:50%;display:inline-block;transition:all .4s;}
+.sim-led.on{background:var(--yellow);box-shadow:0 0 14px var(--yellow);}
+.sim-led.on-red{background:var(--red);box-shadow:0 0 14px var(--red);}
+.sim-led.off{background:#1a1a28;box-shadow:none;}
+.sim-row{display:flex;align-items:center;gap:.8rem;font-size:.65rem;color:var(--muted);margin-bottom:.5rem;}
+.sim-bar-wrap{flex:1;height:6px;background:rgba(201,169,110,.08);border-radius:3px;overflow:hidden;}
+.sim-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--blue));border-radius:3px;transition:width .6s cubic-bezier(.16,1,.3,1);}
+.lcd-display{background:#1a2f1a;border:1px solid #2a4a2a;padding:1rem 1.2rem;font-family:'DM Mono',monospace;font-size:.78rem;color:#7dff7d;line-height:1.8;min-height:60px;letter-spacing:.05em;text-shadow:0 0 8px rgba(125,255,125,.4);}
+
+/* ROBOTICS SECTION */
+.rob-section{position:relative;overflow:hidden;}
+.rob-section::before{content:'ROB';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(8rem,18vw,15rem);color:rgba(201,169,110,.025);letter-spacing:-.05em;pointer-events:none;}
+.rob-layout{display:grid;grid-template-columns:300px 1fr;gap:5rem;align-items:start;position:relative;z-index:1;}
+.rob-intro{position:sticky;top:8rem;}
+.rob-intro p{font-size:.76rem;line-height:2.1;color:var(--muted);margin-bottom:1.2rem;}
+.rob-intro strong{color:var(--cream);font-weight:400;}
+.f-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.5rem;}
+.f-tag{font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;padding:.3rem .8rem;background:rgba(201,169,110,.05);border:1px solid rgba(201,169,110,.13);color:var(--gold-d);}
+.modules{display:flex;flex-direction:column;}
+.module{border-top:1px solid rgba(201,169,110,.08);padding:1.8rem 0;display:grid;grid-template-columns:72px 1fr;gap:1.5rem;transition:padding .35s;}
+.module:last-child{border-bottom:1px solid rgba(201,169,110,.08);}
+.module:hover{padding-left:.8rem;}
+.mod-code{font-size:.58rem;letter-spacing:.2em;color:var(--gold-d);padding-top:.2rem;}
+.mod-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;color:var(--cream);margin-bottom:.35rem;}
+.mod-desc{font-size:.71rem;line-height:1.85;color:var(--muted);}
+
+/* SKILLS */
+.skills-section{background:var(--surface);}
+.sk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,169,110,.07);}
+.sk-block{background:var(--bg);padding:1.8rem;transition:background .3s;}
+.sk-block:hover{background:var(--surface2);}
+.sk-name{font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);margin-bottom:.9rem;}
+.sk-bar{height:2px;background:rgba(201,169,110,.1);position:relative;margin-bottom:.4rem;}
+.sk-fill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.sk-pct{font-size:.58rem;color:var(--gold-d);}
+
+/* CONTACT */
+.contact-section{text-align:center;position:relative;overflow:hidden;}
+.contact-section::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(201,169,110,.04) 0%,transparent 65%);pointer-events:none;}
+.c-inner{max-width:540px;margin:0 auto;position:relative;}
+.c-email{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:300;color:var(--cream);text-decoration:none;display:block;margin:1.5rem 0 2.2rem;transition:color .3s;}
+.c-email:hover{color:var(--gold);}
+.c-sub{font-size:.73rem;line-height:2;color:var(--muted);}
+.soc-row{display:flex;justify-content:center;gap:1.8rem;margin-top:2.2rem;flex-wrap:wrap;}
+.soc-a{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;transition:all .3s;}
+.soc-a:hover{color:var(--gold);border-bottom-color:var(--gold);}
+
+footer{padding:1.6rem 4rem;border-top:1px solid rgba(201,169,110,.07);display:flex;justify-content:space-between;align-items:center;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv.show{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+@media(max-width:960px){
+  nav{padding:1.3rem 2rem;} .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:7rem 2rem 3rem;} .pcard{display:none;}
+  section{padding:4rem 2rem;}
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .proj-grid,.sk-grid{grid-template-columns:1fr;}
+  .rob-layout{grid-template-columns:1fr;gap:2.5rem;} .rob-intro{position:static;}
+  footer{flex-direction:column;gap:.7rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ACD — Robotics</div>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#robotics">Robotics</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-badge">Wokwi Builder</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow rv">Robotics Student &amp; Embedded Systems Developer</div>
+    <h1 class="rv d1">Amlek<br>Chirayath<br><em>Davis</em></h1>
+    <p class="hero-sub rv d2">Designing sensor-driven embedded systems that interact with the physical world. Specialising in Arduino automation, real-time control, and Wokwi circuit simulation.</p>
+    <div class="hero-btns rv d3">
+      <a href="#projects" class="btn-g">View Projects</a>
+      <a href="#contact" class="btn-o">Get in Touch</a>
+    </div>
+  </div>
+  <div class="pcard rv d2">
+    <div class="pc-label">Engineer Profile</div>
+    <div class="pc-name">Amlek Chirayath Davis</div>
+    <div class="pc-role">Robotics &amp; Embedded Systems</div>
+    <div class="pc-div"></div>
+    <div class="pc-chips">
+      <span class="chip">Arduino</span><span class="chip">C++</span>
+      <span class="chip">Wokwi</span><span class="chip">PIR</span>
+      <span class="chip">Ultrasonic</span><span class="chip">LDR</span>
+      <span class="chip">LCD 16×2</span><span class="chip">Relay</span>
+      <span class="chip">PWM</span><span class="chip">Automation</span>
+    </div>
+    <div class="pc-div"></div>
+    <div class="pc-stat-row">
+      <div class="pc-stat"><span class="pc-stat-n">4</span><span class="pc-stat-l">Projects</span></div>
+      <div class="pc-stat"><span class="pc-stat-n">4</span><span class="pc-stat-l">Sensors</span></div>
+      <div class="pc-stat"><span class="pc-stat-n">3</span><span class="pc-stat-l">Displays</span></div>
+    </div>
+    <div class="status-row"><span class="s-dot"></span>Available for Collaboration</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat rv"><span class="stat-n" data-c="4">0</span><span class="stat-l">Live Projects</span></div>
+  <div class="stat rv d1"><span class="stat-n" data-c="4">0</span><span class="stat-l">Sensor Types</span></div>
+  <div class="stat rv d2"><span class="stat-n" data-c="200">0</span><span class="stat-l">Lines of Code</span></div>
+  <div class="stat rv d3"><span class="stat-n" data-c="1">0</span><span class="stat-l">Sim Platform</span></div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects-section">
+  <div class="eyebrow rv">01 — Project Work</div>
+  <h2 class="rv d1">Four circuits,<br><em>four solutions</em></h2>
+
+  <div class="proj-grid">
+
+    <!-- ══ PROJECT 1: PIR Motion Detector ══ -->
+    <div class="proj-card rv">
+      <div class="proj-tabs">
+        <div class="ptab active" onclick="switchTab(this,'p1','info')">Info</div>
+        <div class="ptab" onclick="switchTab(this,'p1','diagram')">Diagram</div>
+        <div class="ptab" onclick="switchTab(this,'p1','code')">Code</div>
+        <div class="ptab" onclick="switchTab(this,'p1','sim')">Simulate</div>
+      </div>
+      <div class="proj-body">
+        <!-- INFO -->
+        <div id="p1-info" class="tab-panel active">
+          <div class="proj-num">P — 001</div>
+          <span class="proj-icon">🚨</span>
+          <div class="proj-title">PIR Motion Detector</div>
+          <div class="proj-desc">Detects movement via a PIR sensor on D2. Triggers an LED on D13 and streams real-time status to the Serial Monitor at 9600 baud. Foundational motion-sensing circuit.</div>
+          <div class="comp-label">Components</div>
+          <div class="p-tags"><span class="p-tag">Arduino Uno</span><span class="p-tag">PIR Sensor</span><span class="p-tag">LED</span><span class="p-tag">220Ω Resistor</span></div>
+          <a href="https://wokwi.com/projects/458379522403678209" target="_blank" class="proj-link">Open on Wokwi ↗</a>
+        </div>
+        <!-- DIAGRAM -->
+        <div id="p1-diagram" class="tab-panel">
+          <div class="diagram-panel">
+            <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+              <defs>
+                <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- Arduino board -->
+              <rect x="150" y="100" width="180" height="120" rx="4" fill="#1a2a1a" stroke="#3a6a3a" stroke-width="1.5"/>
+              <text x="240" y="165" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="10" font-weight="bold">ARDUINO UNO</text>
+              <!-- Pins labels -->
+              <text x="158" y="125" fill="#c9a96e" font-family="DM Mono,monospace" font-size="8">D2</text>
+              <text x="158" y="145" fill="#c9a96e" font-family="DM Mono,monospace" font-size="8">D13</text>
+              <text x="158" y="195" fill="#60a5fa" font-family="DM Mono,monospace" font-size="8">5V</text>
+              <text x="158" y="210" fill="#888" font-family="DM Mono,monospace" font-size="8">GND</text>
+              <!-- Pin dots -->
+              <circle cx="148" cy="122" r="4" fill="#c9a96e"/>
+              <circle cx="148" cy="142" r="4" fill="#c9a96e"/>
+              <circle cx="148" cy="192" r="4" fill="#60a5fa"/>
+              <circle cx="148" cy="207" r="4" fill="#444"/>
+
+              <!-- PIR Sensor -->
+              <rect x="30" y="90" width="70" height="60" rx="4" fill="#1a1a3a" stroke="#3d6b9e" stroke-width="1.5"/>
+              <circle cx="65" cy="112" r="16" fill="#0a0a20" stroke="#3d6b9e" stroke-width="1"/>
+              <circle cx="65" cy="112" r="10" fill="#1a1a5a" opacity=".6"/>
+              <text x="65" y="164" text-anchor="middle" fill="#60a5fa" font-family="DM Mono,monospace" font-size="8">PIR</text>
+              <text x="65" y="174" text-anchor="middle" fill="#888" font-family="DM Mono,monospace" font-size="7">HC-SR501</text>
+              <!-- PIR pins -->
+              <line x1="40" y1="150" x2="40" y2="165" stroke="#60a5fa" stroke-width="1.5"/>
+              <line x1="55" y1="150" x2="55" y2="165" stroke="#888" stroke-width="1.5"/>
+              <line x1="70" y1="150" x2="70" y2="165" stroke="#c9a96e" stroke-width="1.5"/>
+              <text x="33" y="175" fill="#60a5fa" font-family="DM Mono,monospace" font-size="7">VCC</text>
+              <text x="48" y="175" fill="#888" font-family="DM Mono,monospace" font-size="7">GND</text>
+              <text x="63" y="175" fill="#c9a96e" font-family="DM Mono,monospace" font-size="7">OUT</text>
+              <!-- Wires PIR -->
+              <path d="M70 165 L70 210 L148 122" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <path d="M40 165 L40 230 L148 207" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <path d="M55 165 L55 240 L148 192" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+              <!-- LED -->
+              <ellipse cx="390" cy="145" rx="14" ry="20" fill="#3a3a00" stroke="#fbbf24" stroke-width="1.5" id="p1led"/>
+              <line x1="383" y1="165" x2="383" y2="185" stroke="#888" stroke-width="1.5"/>
+              <line x1="397" y1="165" x2="397" y2="185" stroke="#c9a96e" stroke-width="1.5"/>
+              <text x="390" y="200" text-anchor="middle" fill="#fbbf24" font-family="DM Mono,monospace" font-size="8">LED</text>
+              <!-- Resistor -->
+              <rect x="370" y="205" width="40" height="12" rx="2" fill="#2a1a0a" stroke="#888" stroke-width="1"/>
+              <text x="390" y="215" text-anchor="middle" fill="#888" font-family="DM Mono,monospace" font-size="7">220Ω</text>
+              <line x1="390" y1="217" x2="390" y2="240" stroke="#888" stroke-width="1.5"/>
+              <!-- Wires LED -->
+              <path d="M397 185 L415 185 L415 260 L240 260 L240 220 L330 220" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <path d="M383 185 L360 185 L360 142 L329 142" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <!-- Arduino right side -->
+              <circle cx="330" cy="142" r="4" fill="#c9a96e"/>
+              <text x="335" y="146" fill="#c9a96e" font-family="DM Mono,monospace" font-size="8">D13</text>
+              <circle cx="330" cy="222" r="4" fill="#444"/>
+              <text x="335" y="226" fill="#888" font-family="DM Mono,monospace" font-size="8">GND</text>
+
+              <!-- Labels -->
+              <text x="240" y="295" text-anchor="middle" fill="#3a3a5a" font-family="DM Mono,monospace" font-size="9">PIR Motion Detector — Circuit Diagram</text>
+            </svg>
+          </div>
+        </div>
+        <!-- CODE -->
+        <div id="p1-code" class="tab-panel">
+          <div class="code-panel"><span class="code-line"><span class="ln">1</span><span class="cm">// PIR Motion Detector</span></span>
+<span class="code-line"><span class="ln">2</span><span class="cm">// PIR OUT → D2 | LED → D13</span></span>
+<span class="code-line"><span class="ln">3</span></span>
+<span class="code-line"><span class="ln">4</span><span class="kw">const int</span> <span class="var">pirPin</span> = <span class="num">2</span>;   <span class="cm">// PIR sensor output</span></span>
+<span class="code-line"><span class="ln">5</span><span class="kw">const int</span> <span class="var">ledPin</span> = <span class="num">13</span>;  <span class="cm">// LED indicator</span></span>
+<span class="code-line"><span class="ln">6</span></span>
+<span class="code-line"><span class="ln">7</span><span class="kw">void</span> <span class="fn">setup</span>() {</span>
+<span class="code-line"><span class="ln">8</span>  <span class="fn">pinMode</span>(<span class="var">pirPin</span>, INPUT);</span>
+<span class="code-line"><span class="ln">9</span>  <span class="fn">pinMode</span>(<span class="var">ledPin</span>, OUTPUT);</span>
+<span class="code-line"><span class="ln">10</span>  Serial.<span class="fn">begin</span>(<span class="num">9600</span>);</span>
+<span class="code-line"><span class="ln">11</span>}</span>
+<span class="code-line"><span class="ln">12</span></span>
+<span class="code-line"><span class="ln">13</span><span class="kw">void</span> <span class="fn">loop</span>() {</span>
+<span class="code-line"><span class="ln">14</span>  <span class="kw">int</span> <span class="var">motionState</span> = <span class="fn">digitalRead</span>(<span class="var">pirPin</span>);</span>
+<span class="code-line"><span class="ln">15</span></span>
+<span class="code-line"><span class="ln">16</span>  <span class="kw">if</span> (<span class="var">motionState</span> == HIGH) {</span>
+<span class="code-line"><span class="ln">17</span>    <span class="fn">digitalWrite</span>(<span class="var">ledPin</span>, HIGH);</span>
+<span class="code-line"><span class="ln">18</span>    Serial.<span class="fn">println</span>(<span class="str">"Motion detected - LED ON"</span>);</span>
+<span class="code-line"><span class="ln">19</span>  } <span class="kw">else</span> {</span>
+<span class="code-line"><span class="ln">20</span>    <span class="fn">digitalWrite</span>(<span class="var">ledPin</span>, LOW);</span>
+<span class="code-line"><span class="ln">21</span>    Serial.<span class="fn">println</span>(<span class="str">"No motion detected - LED OFF"</span>);</span>
+<span class="code-line"><span class="ln">22</span>  }</span>
+<span class="code-line"><span class="ln">23</span>  <span class="fn">delay</span>(<span class="num">200</span>);</span>
+<span class="code-line"><span class="ln">24</span>}</span>
+          </div>
+        </div>
+        <!-- SIMULATE -->
+        <div id="p1-sim" class="tab-panel">
+          <div class="sim-panel">
+            <div class="sim-title">▶ Interactive Simulation</div>
+            <div class="sim-screen" id="p1-serial">Serial Monitor ready...<br>Waiting for motion...</div>
+            <div class="sim-row">
+              <span>PIR Sensor:</span>
+              <span id="p1-pir-status" style="color:var(--muted)">No Motion</span>
+              <span class="sim-led off" id="p1-led-vis"></span>
+              <span>LED</span>
+            </div>
+            <div class="sim-controls">
+              <button class="sim-btn" onclick="p1Trigger(true)">🚶 Trigger Motion</button>
+              <button class="sim-btn" onclick="p1Trigger(false)">🛑 Clear Motion</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PROJECT 2: HOME SECURITY ══ -->
+    <div class="proj-card rv d1">
+      <div class="proj-tabs">
+        <div class="ptab active" onclick="switchTab(this,'p2','info')">Info</div>
+        <div class="ptab" onclick="switchTab(this,'p2','diagram')">Diagram</div>
+        <div class="ptab" onclick="switchTab(this,'p2','code')">Code</div>
+        <div class="ptab" onclick="switchTab(this,'p2','sim')">Simulate</div>
+      </div>
+      <div class="proj-body">
+        <!-- INFO -->
+        <div id="p2-info" class="tab-panel active">
+          <div class="proj-num">P — 002</div>
+          <span class="proj-icon">🏠</span>
+          <div class="proj-title">Home Security System</div>
+          <div class="proj-desc">Complete intruder alert combining PIR sensing with a 16×2 LCD status display, buzzer alarm, and LED. Shows "System Armed" or "!! INTRUDER !!" based on motion state.</div>
+          <div class="comp-label">Components</div>
+          <div class="p-tags"><span class="p-tag">Arduino Uno</span><span class="p-tag">PIR Sensor</span><span class="p-tag">LCD 16×2</span><span class="p-tag">Buzzer</span><span class="p-tag">LED</span></div>
+          <a href="https://wokwi.com/projects/457101324157519873" target="_blank" class="proj-link">Open on Wokwi ↗</a>
+        </div>
+        <!-- DIAGRAM -->
+        <div id="p2-diagram" class="tab-panel">
+          <div class="diagram-panel">
+            <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+              <!-- Arduino -->
+              <rect x="170" y="120" width="140" height="100" rx="4" fill="#1a2a1a" stroke="#3a6a3a" stroke-width="1.5"/>
+              <text x="240" y="175" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="9" font-weight="bold">ARDUINO UNO</text>
+              <circle cx="162" cy="135" r="4" fill="#c9a96e"/><text x="148" y="139" fill="#c9a96e" font-family="DM Mono,monospace" font-size="7">D2</text>
+              <circle cx="162" cy="150" r="4" fill="#f87171"/><text x="148" y="154" fill="#f87171" font-family="DM Mono,monospace" font-size="7">D8</text>
+              <circle cx="162" cy="165" r="4" fill="#fbbf24"/><text x="148" y="169" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7">D9</text>
+              <circle cx="318" cy="135" r="4" fill="#c9a96e"/><text x="322" y="139" fill="#c9a96e" font-family="DM Mono,monospace" font-size="7">D3-D7</text>
+
+              <!-- LCD -->
+              <rect x="320" y="60" width="120" height="50" rx="3" fill="#1a2f1a" stroke="#2a4a2a" stroke-width="1.5"/>
+              <rect x="328" y="66" width="104" height="38" rx="2" fill="#0d1f0d"/>
+              <text x="380" y="84" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="7">Home Security</text>
+              <text x="380" y="98" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="7">System Armed</text>
+              <text x="380" y="122" text-anchor="middle" fill="#888" font-family="DM Mono,monospace" font-size="7">LCD 16×2</text>
+              <path d="M318 135 L318 85 L320 85" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <!-- PIR -->
+              <rect x="30" y="110" width="65" height="55" rx="4" fill="#1a1a3a" stroke="#3d6b9e" stroke-width="1.5"/>
+              <circle cx="62" cy="130" r="14" fill="#0a0a20" stroke="#3d6b9e"/>
+              <text x="62" y="175" text-anchor="middle" fill="#60a5fa" font-family="DM Mono,monospace" font-size="7">PIR</text>
+              <path d="M77 130 L162 135" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <!-- Buzzer -->
+              <circle cx="60" cy="250" r="22" fill="#1a1a0a" stroke="#f87171" stroke-width="1.5"/>
+              <circle cx="60" cy="250" r="10" fill="#0a0a00" stroke="#f87171" stroke-width="1"/>
+              <text x="60" y="282" text-anchor="middle" fill="#f87171" font-family="DM Mono,monospace" font-size="7">BUZZER</text>
+              <path d="M60 228 L60 210 L162 150" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <!-- LED -->
+              <ellipse cx="400" cy="230" rx="12" ry="17" fill="#2a2a00" stroke="#fbbf24" stroke-width="1.5"/>
+              <text x="400" y="257" text-anchor="middle" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7">LED</text>
+              <path d="M388 230 L350 230 L350 165 L318 165" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <text x="240" y="320" text-anchor="middle" fill="#3a3a5a" font-family="DM Mono,monospace" font-size="8">Home Security System — Circuit Diagram</text>
+            </svg>
+          </div>
+        </div>
+        <!-- CODE -->
+        <div id="p2-code" class="tab-panel">
+          <div class="code-panel"><span class="code-line"><span class="ln">1</span><span class="pp">#include</span> <span class="str">&lt;LiquidCrystal.h&gt;</span></span>
+<span class="code-line"><span class="ln">2</span></span>
+<span class="code-line"><span class="ln">3</span>LiquidCrystal <span class="fn">lcd</span>(<span class="num">7</span>, <span class="num">6</span>, <span class="num">5</span>, <span class="num">4</span>, <span class="num">3</span>, <span class="num">10</span>);</span>
+<span class="code-line"><span class="ln">4</span><span class="kw">int</span> <span class="var">pirPin</span> = <span class="num">2</span>;</span>
+<span class="code-line"><span class="ln">5</span><span class="kw">int</span> <span class="var">buzzer</span> = <span class="num">8</span>;</span>
+<span class="code-line"><span class="ln">6</span><span class="kw">int</span> <span class="var">led</span> = <span class="num">9</span>;</span>
+<span class="code-line"><span class="ln">7</span></span>
+<span class="code-line"><span class="ln">8</span><span class="kw">void</span> <span class="fn">setup</span>() {</span>
+<span class="code-line"><span class="ln">9</span>  <span class="fn">pinMode</span>(<span class="var">pirPin</span>, INPUT);</span>
+<span class="code-line"><span class="ln">10</span>  <span class="fn">pinMode</span>(<span class="var">buzzer</span>, OUTPUT);</span>
+<span class="code-line"><span class="ln">11</span>  <span class="fn">pinMode</span>(<span class="var">led</span>, OUTPUT);</span>
+<span class="code-line"><span class="ln">12</span>  lcd.<span class="fn">begin</span>(<span class="num">16</span>, <span class="num">2</span>);</span>
+<span class="code-line"><span class="ln">13</span>  lcd.<span class="fn">print</span>(<span class="str">"Home Security"</span>);</span>
+<span class="code-line"><span class="ln">14</span>  <span class="fn">delay</span>(<span class="num">2000</span>);</span>
+<span class="code-line"><span class="ln">15</span>  lcd.<span class="fn">clear</span>();</span>
+<span class="code-line"><span class="ln">16</span>}</span>
+<span class="code-line"><span class="ln">17</span></span>
+<span class="code-line"><span class="ln">18</span><span class="kw">void</span> <span class="fn">loop</span>() {</span>
+<span class="code-line"><span class="ln">19</span>  <span class="kw">int</span> <span class="var">motion</span> = <span class="fn">digitalRead</span>(<span class="var">pirPin</span>);</span>
+<span class="code-line"><span class="ln">20</span>  <span class="kw">if</span> (<span class="var">motion</span> == HIGH) {</span>
+<span class="code-line"><span class="ln">21</span>    <span class="fn">digitalWrite</span>(<span class="var">buzzer</span>, HIGH);</span>
+<span class="code-line"><span class="ln">22</span>    <span class="fn">digitalWrite</span>(<span class="var">led</span>, HIGH);</span>
+<span class="code-line"><span class="ln">23</span>    lcd.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>);</span>
+<span class="code-line"><span class="ln">24</span>    lcd.<span class="fn">print</span>(<span class="str">"!! INTRUDER !!"</span>);</span>
+<span class="code-line"><span class="ln">25</span>    lcd.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);</span>
+<span class="code-line"><span class="ln">26</span>    lcd.<span class="fn">print</span>(<span class="str">"Motion Detected"</span>);</span>
+<span class="code-line"><span class="ln">27</span>  } <span class="kw">else</span> {</span>
+<span class="code-line"><span class="ln">28</span>    <span class="fn">digitalWrite</span>(<span class="var">buzzer</span>, LOW);</span>
+<span class="code-line"><span class="ln">29</span>    <span class="fn">digitalWrite</span>(<span class="var">led</span>, LOW);</span>
+<span class="code-line"><span class="ln">30</span>    lcd.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>);</span>
+<span class="code-line"><span class="ln">31</span>    lcd.<span class="fn">print</span>(<span class="str">"System Armed   "</span>);</span>
+<span class="code-line"><span class="ln">32</span>    lcd.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);</span>
+<span class="code-line"><span class="ln">33</span>    lcd.<span class="fn">print</span>(<span class="str">"No Motion      "</span>);</span>
+<span class="code-line"><span class="ln">34</span>  }</span>
+<span class="code-line"><span class="ln">35</span>  <span class="fn">delay</span>(<span class="num">500</span>);</span>
+<span class="code-line"><span class="ln">36</span>}</span>
+          </div>
+        </div>
+        <!-- SIMULATE -->
+        <div id="p2-sim" class="tab-panel">
+          <div class="sim-panel">
+            <div class="sim-title">▶ Interactive Simulation</div>
+            <div class="lcd-display" id="p2-lcd">System Armed   <br>No Motion      </div>
+            <br>
+            <div class="sim-row">
+              <span>Buzzer:</span><span id="p2-buz" style="color:var(--muted)">OFF</span>
+              <span style="margin-left:.5rem">LED:</span><span class="sim-led off" id="p2-led"></span>
+            </div>
+            <div class="sim-controls">
+              <button class="sim-btn" onclick="p2Trigger(true)">🚶 Trigger Intruder</button>
+              <button class="sim-btn" onclick="p2Trigger(false)">✅ Clear — Arm System</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PROJECT 3: WATER LEVEL ══ -->
+    <div class="proj-card rv">
+      <div class="proj-tabs">
+        <div class="ptab active" onclick="switchTab(this,'p3','info')">Info</div>
+        <div class="ptab" onclick="switchTab(this,'p3','diagram')">Diagram</div>
+        <div class="ptab" onclick="switchTab(this,'p3','code')">Code</div>
+        <div class="ptab" onclick="switchTab(this,'p3','sim')">Simulate</div>
+      </div>
+      <div class="proj-body">
+        <!-- INFO -->
+        <div id="p3-info" class="tab-panel active">
+          <div class="proj-num">P — 003</div>
+          <span class="proj-icon">💧</span>
+          <div class="proj-title">Water Level Monitor</div>
+          <div class="proj-desc">Uses HC-SR04 ultrasonic sensor to measure tank water level in real time. Auto-controls a relay pump — switches ON below 30% and OFF above 90%. LCD shows live percentage.</div>
+          <div class="comp-label">Components</div>
+          <div class="p-tags"><span class="p-tag">Arduino Uno</span><span class="p-tag">HC-SR04</span><span class="p-tag">Relay Module</span><span class="p-tag">LCD 16×2</span><span class="p-tag">LED</span></div>
+          <a href="https://wokwi.com/projects/457050155667043329" target="_blank" class="proj-link">Open on Wokwi ↗</a>
+        </div>
+        <!-- DIAGRAM -->
+        <div id="p3-diagram" class="tab-panel">
+          <div class="diagram-panel">
+            <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+              <!-- Arduino -->
+              <rect x="160" y="110" width="150" height="100" rx="4" fill="#1a2a1a" stroke="#3a6a3a" stroke-width="1.5"/>
+              <text x="235" y="165" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="9" font-weight="bold">ARDUINO UNO</text>
+              <circle cx="152" cy="125" r="4" fill="#60a5fa"/><text x="136" y="129" fill="#60a5fa" font-family="DM Mono,monospace" font-size="7">D9</text>
+              <circle cx="152" cy="140" r="4" fill="#c3e88d"/><text x="136" y="144" fill="#c3e88d" font-family="DM Mono,monospace" font-size="7">D8</text>
+              <circle cx="152" cy="155" r="4" fill="#f87171"/><text x="136" y="159" fill="#f87171" font-family="DM Mono,monospace" font-size="7">D10</text>
+              <circle cx="152" cy="170" r="4" fill="#fbbf24"/><text x="136" y="174" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7">D11</text>
+              <circle cx="310" cy="125" r="4" fill="#c9a96e"/>
+
+              <!-- Ultrasonic -->
+              <rect x="20" y="100" width="80" height="55" rx="4" fill="#1a1a2a" stroke="#60a5fa" stroke-width="1.5"/>
+              <circle cx="43" cy="122" r="12" fill="#0a0a1a" stroke="#60a5fa"/>
+              <circle cx="77" cy="122" r="12" fill="#0a0a1a" stroke="#60a5fa"/>
+              <text x="60" y="165" text-anchor="middle" fill="#60a5fa" font-family="DM Mono,monospace" font-size="7">HC-SR04</text>
+              <path d="M100 125 L152 125" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <path d="M100 140 L130 140 L130 152 L152 152" fill="none" stroke="#c3e88d" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <!-- Relay -->
+              <rect x="355" y="100" width="85" height="50" rx="4" fill="#1a0a0a" stroke="#f87171" stroke-width="1.5"/>
+              <rect x="365" y="110" width="20" height="15" rx="2" fill="#0a0a0a" stroke="#f87171"/>
+              <text x="397" y="158" text-anchor="middle" fill="#f87171" font-family="DM Mono,monospace" font-size="7">RELAY MODULE</text>
+              <path d="M310 155 L310 125 L355 125" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <!-- LCD -->
+              <rect x="310" y="210" width="130" height="48" rx="3" fill="#1a2f1a" stroke="#2a4a2a" stroke-width="1.5"/>
+              <rect x="318" y="216" width="114" height="36" rx="2" fill="#0d1f0d"/>
+              <text x="375" y="232" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="7">Level: 65%</text>
+              <text x="375" y="246" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="7">Motor: OFF</text>
+              <text x="375" y="268" text-anchor="middle" fill="#888" font-family="DM Mono,monospace" font-size="7">LCD 16×2</text>
+              <path d="M310 234 L310 210" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <!-- LED -->
+              <ellipse cx="80" cy="255" rx="10" ry="15" fill="#2a2a00" stroke="#fbbf24" stroke-width="1.5"/>
+              <text x="80" y="278" text-anchor="middle" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7">LED</text>
+              <path d="M80 240 L80 210 L152 170" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <text x="240" y="305" text-anchor="middle" fill="#3a3a5a" font-family="DM Mono,monospace" font-size="8">Water Level Monitor — Circuit Diagram</text>
+            </svg>
+          </div>
+        </div>
+        <!-- CODE -->
+        <div id="p3-code" class="tab-panel">
+          <div class="code-panel"><span class="code-line"><span class="ln">1</span><span class="pp">#include</span> <span class="str">&lt;LiquidCrystal.h&gt;</span></span>
+<span class="code-line"><span class="ln">2</span>LiquidCrystal <span class="fn">lcd</span>(<span class="num">7</span>, <span class="num">6</span>, <span class="num">5</span>, <span class="num">4</span>, <span class="num">3</span>, <span class="num">2</span>);</span>
+<span class="code-line"><span class="ln">3</span><span class="kw">int</span> <span class="var">trig</span>=<span class="num">9</span>, <span class="var">echo</span>=<span class="num">8</span>, <span class="var">relay</span>=<span class="num">10</span>, <span class="var">led</span>=<span class="num">11</span>;</span>
+<span class="code-line"><span class="ln">4</span><span class="kw">long</span> <span class="var">duration</span>; <span class="kw">int</span> <span class="var">distance</span>;</span>
+<span class="code-line"><span class="ln">5</span><span class="kw">int</span> <span class="var">tankHeight</span> = <span class="num">20</span>;</span>
+<span class="code-line"><span class="ln">6</span></span>
+<span class="code-line"><span class="ln">7</span><span class="kw">void</span> <span class="fn">setup</span>() {</span>
+<span class="code-line"><span class="ln">8</span>  <span class="fn">pinMode</span>(<span class="var">trig</span>, OUTPUT);</span>
+<span class="code-line"><span class="ln">9</span>  <span class="fn">pinMode</span>(<span class="var">echo</span>, INPUT);</span>
+<span class="code-line"><span class="ln">10</span>  <span class="fn">pinMode</span>(<span class="var">relay</span>, OUTPUT);</span>
+<span class="code-line"><span class="ln">11</span>  <span class="fn">pinMode</span>(<span class="var">led</span>, OUTPUT);</span>
+<span class="code-line"><span class="ln">12</span>  lcd.<span class="fn">begin</span>(<span class="num">16</span>, <span class="num">2</span>);</span>
+<span class="code-line"><span class="ln">13</span>  lcd.<span class="fn">print</span>(<span class="str">"Water Controller"</span>);</span>
+<span class="code-line"><span class="ln">14</span>  <span class="fn">delay</span>(<span class="num">2000</span>); lcd.<span class="fn">clear</span>();</span>
+<span class="code-line"><span class="ln">15</span>}</span>
+<span class="code-line"><span class="ln">16</span></span>
+<span class="code-line"><span class="ln">17</span><span class="kw">void</span> <span class="fn">loop</span>() {</span>
+<span class="code-line"><span class="ln">18</span>  <span class="cm">// Ultrasonic pulse</span></span>
+<span class="code-line"><span class="ln">19</span>  <span class="fn">digitalWrite</span>(<span class="var">trig</span>, LOW); <span class="fn">delayMicroseconds</span>(<span class="num">2</span>);</span>
+<span class="code-line"><span class="ln">20</span>  <span class="fn">digitalWrite</span>(<span class="var">trig</span>, HIGH); <span class="fn">delayMicroseconds</span>(<span class="num">10</span>);</span>
+<span class="code-line"><span class="ln">21</span>  <span class="fn">digitalWrite</span>(<span class="var">trig</span>, LOW);</span>
+<span class="code-line"><span class="ln">22</span>  <span class="var">duration</span> = <span class="fn">pulseIn</span>(<span class="var">echo</span>, HIGH);</span>
+<span class="code-line"><span class="ln">23</span>  <span class="var">distance</span> = <span class="var">duration</span> * <span class="num">0.034</span> / <span class="num">2</span>;</span>
+<span class="code-line"><span class="ln">24</span>  <span class="kw">int</span> <span class="var">level</span> = <span class="var">tankHeight</span> - <span class="var">distance</span>;</span>
+<span class="code-line"><span class="ln">25</span>  <span class="kw">int</span> <span class="var">pct</span> = (<span class="var">level</span> * <span class="num">100</span>) / <span class="var">tankHeight</span>;</span>
+<span class="code-line"><span class="ln">26</span>  lcd.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>);</span>
+<span class="code-line"><span class="ln">27</span>  lcd.<span class="fn">print</span>(<span class="str">"Level: "</span>); lcd.<span class="fn">print</span>(<span class="var">pct</span>); lcd.<span class="fn">print</span>(<span class="str">"%  "</span>);</span>
+<span class="code-line"><span class="ln">28</span>  <span class="kw">if</span> (<span class="var">pct</span> &lt; <span class="num">30</span>) {</span>
+<span class="code-line"><span class="ln">29</span>    <span class="fn">digitalWrite</span>(<span class="var">relay</span>, HIGH); <span class="cm">// Motor ON</span></span>
+<span class="code-line"><span class="ln">30</span>    lcd.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>); lcd.<span class="fn">print</span>(<span class="str">"Motor: ON  "</span>);</span>
+<span class="code-line"><span class="ln">31</span>  } <span class="kw">else if</span> (<span class="var">pct</span> &gt; <span class="num">90</span>) {</span>
+<span class="code-line"><span class="ln">32</span>    <span class="fn">digitalWrite</span>(<span class="var">relay</span>, LOW); <span class="cm">// Motor OFF</span></span>
+<span class="code-line"><span class="ln">33</span>    lcd.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>); lcd.<span class="fn">print</span>(<span class="str">"Motor: OFF "</span>);</span>
+<span class="code-line"><span class="ln">34</span>  }</span>
+<span class="code-line"><span class="ln">35</span>  <span class="fn">delay</span>(<span class="num">1000</span>);</span>
+<span class="code-line"><span class="ln">36</span>}</span>
+          </div>
+        </div>
+        <!-- SIMULATE -->
+        <div id="p3-sim" class="tab-panel">
+          <div class="sim-panel">
+            <div class="sim-title">▶ Interactive Simulation</div>
+            <div class="lcd-display" id="p3-lcd">Level: 55%     <br>Motor: OFF     </div>
+            <br>
+            <div class="sim-row">
+              <span>Water Level:</span>
+              <div class="sim-bar-wrap"><div class="sim-bar" id="p3-bar" style="width:55%"></div></div>
+              <span id="p3-pct">55%</span>
+            </div>
+            <div style="height:.5rem"></div>
+            <input type="range" id="p3-slider" min="0" max="100" value="55" oninput="p3Update(this.value)" style="width:100%;accent-color:var(--gold);cursor:none;">
+            <div class="sim-row" style="margin-top:.8rem">
+              <span>Relay/Motor:</span><span id="p3-relay" style="color:var(--muted)">OFF</span>
+              <span class="sim-led off" id="p3-led"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PROJECT 4: LDR AUTO BRIGHTNESS ══ -->
+    <div class="proj-card rv d1">
+      <div class="proj-tabs">
+        <div class="ptab active" onclick="switchTab(this,'p4','info')">Info</div>
+        <div class="ptab" onclick="switchTab(this,'p4','diagram')">Diagram</div>
+        <div class="ptab" onclick="switchTab(this,'p4','code')">Code</div>
+        <div class="ptab" onclick="switchTab(this,'p4','sim')">Simulate</div>
+      </div>
+      <div class="proj-body">
+        <!-- INFO -->
+        <div id="p4-info" class="tab-panel active">
+          <div class="proj-num">P — 004</div>
+          <span class="proj-icon">☀️</span>
+          <div class="proj-title">LDR Auto-Brightness Control</div>
+          <div class="proj-desc">Reads ambient light via an LDR (photoresistor) on A0. Inversely maps the 0–1023 ADC reading to a PWM brightness (0–255) on pin D9. Bright environment dims the LED; darkness brightens it automatically.</div>
+          <div class="comp-label">Components</div>
+          <div class="p-tags"><span class="p-tag">Arduino Uno</span><span class="p-tag">LDR / Photoresistor</span><span class="p-tag">LED</span><span class="p-tag">10kΩ Resistor</span><span class="p-tag">220Ω Resistor</span></div>
+          <a href="https://wokwi.com/projects/458379892087600129" target="_blank" class="proj-link">Open on Wokwi ↗</a>
+        </div>
+        <!-- DIAGRAM -->
+        <div id="p4-diagram" class="tab-panel">
+          <div class="diagram-panel">
+            <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+              <!-- Arduino -->
+              <rect x="155" y="110" width="155" height="100" rx="4" fill="#1a2a1a" stroke="#3a6a3a" stroke-width="1.5"/>
+              <text x="232" y="165" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="9" font-weight="bold">ARDUINO UNO</text>
+              <circle cx="147" cy="128" r="4" fill="#c792ea"/><text x="128" y="132" fill="#c792ea" font-family="DM Mono,monospace" font-size="7">A0</text>
+              <circle cx="147" cy="148" r="4" fill="#fbbf24"/><text x="128" y="152" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7">D9</text>
+              <circle cx="147" cy="168" r="4" fill="#60a5fa"/><text x="128" y="172" fill="#60a5fa" font-family="DM Mono,monospace" font-size="7">5V</text>
+              <circle cx="147" cy="185" r="4" fill="#444"/><text x="128" y="189" fill="#888" font-family="DM Mono,monospace" font-size="7">GND</text>
+
+              <!-- LDR symbol -->
+              <g transform="translate(35,105)">
+                <rect x="10" y="10" width="50" height="35" rx="4" fill="#1a1a0a" stroke="#c792ea" stroke-width="1.5"/>
+                <!-- zigzag resistor symbol -->
+                <polyline points="15,27 20,20 25,34 30,20 35,34 40,20 45,27" fill="none" stroke="#c792ea" stroke-width="1.5"/>
+                <!-- light arrows -->
+                <line x1="20" y1="5" x2="15" y2="0" stroke="#fbbf24" stroke-width="1" opacity=".7"/>
+                <line x1="30" y1="3" x2="25" y2="-2" stroke="#fbbf24" stroke-width="1" opacity=".7"/>
+                <line x1="40" y1="5" x2="35" y2="0" stroke="#fbbf24" stroke-width="1" opacity=".7"/>
+                <text x="35" y="58" text-anchor="middle" fill="#c792ea" font-family="DM Mono,monospace" font-size="7">LDR</text>
+                <text x="35" y="67" text-anchor="middle" fill="#888" font-family="DM Mono,monospace" font-size="6">Photoresistor</text>
+              </g>
+              <!-- LDR wires -->
+              <path d="M85 128 L147 128" fill="none" stroke="#c792ea" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <path d="M70 185 L70 220 L147 185" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <path d="M70 140 L70 168 L147 168" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+              <!-- 10k pull-down resistor -->
+              <rect x="52" y="150" width="36" height="10" rx="2" fill="#2a1a0a" stroke="#888"/>
+              <text x="70" y="158" text-anchor="middle" fill="#888" font-family="DM Mono,monospace" font-size="6">10kΩ</text>
+
+              <!-- LED + resistor -->
+              <ellipse cx="395" cy="145" rx="14" ry="20" fill="#2a2200" stroke="#fbbf24" stroke-width="1.5" id="p4-led-sym"/>
+              <text x="395" y="175" text-anchor="middle" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7">LED</text>
+              <rect x="375" y="185" width="40" height="10" rx="2" fill="#2a1a0a" stroke="#888"/>
+              <text x="395" y="193" text-anchor="middle" fill="#888" font-family="DM Mono,monospace" font-size="6">220Ω</text>
+              <line x1="395" y1="195" x2="395" y2="215" stroke="#888" stroke-width="1.5"/>
+              <path d="M381 145 L350 145 L350 148 L310 148" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <circle cx="310" cy="148" r="4" fill="#fbbf24"/>
+              <text x="315" y="152" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7">D9 PWM</text>
+
+              <!-- PWM wave indication -->
+              <polyline points="335,240 340,240 340,230 350,230 350,240 360,240 360,230 365,230 365,240 375,240" fill="none" stroke="#fbbf24" stroke-width="1" opacity=".5"/>
+              <text x="355" y="258" text-anchor="middle" fill="#fbbf24" font-family="DM Mono,monospace" font-size="7" opacity=".6">PWM Signal</text>
+
+              <!-- Serial monitor hint -->
+              <rect x="20" y="230" width="100" height="50" rx="3" fill="#0a0a12" stroke="#3a3a5a" stroke-width="1"/>
+              <text x="70" y="248" text-anchor="middle" fill="#60a5fa" font-family="DM Mono,monospace" font-size="7">Serial Monitor</text>
+              <text x="70" y="261" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="6">Light: 512</text>
+              <text x="70" y="272" text-anchor="middle" fill="#4ade80" font-family="DM Mono,monospace" font-size="6">Brightness: 127</text>
+
+              <text x="240" y="305" text-anchor="middle" fill="#3a3a5a" font-family="DM Mono,monospace" font-size="8">LDR Auto-Brightness — Circuit Diagram</text>
+            </svg>
+          </div>
+        </div>
+        <!-- CODE -->
+        <div id="p4-code" class="tab-panel">
+          <div class="code-panel"><span class="code-line"><span class="ln">1</span><span class="cm">// LDR Auto-Brightness Control</span></span>
+<span class="code-line"><span class="ln">2</span><span class="cm">// LDR A0 → A0  |  LED PWM → D9</span></span>
+<span class="code-line"><span class="ln">3</span></span>
+<span class="code-line"><span class="ln">4</span><span class="kw">const int</span> <span class="var">ldrPin</span> = A0;  <span class="cm">// Photoresistor</span></span>
+<span class="code-line"><span class="ln">5</span><span class="kw">const int</span> <span class="var">ledPin</span> = <span class="num">9</span>;   <span class="cm">// PWM LED pin</span></span>
+<span class="code-line"><span class="ln">6</span></span>
+<span class="code-line"><span class="ln">7</span><span class="kw">void</span> <span class="fn">setup</span>() {</span>
+<span class="code-line"><span class="ln">8</span>  <span class="fn">pinMode</span>(<span class="var">ledPin</span>, OUTPUT);</span>
+<span class="code-line"><span class="ln">9</span>  Serial.<span class="fn">begin</span>(<span class="num">9600</span>);</span>
+<span class="code-line"><span class="ln">10</span>}</span>
+<span class="code-line"><span class="ln">11</span></span>
+<span class="code-line"><span class="ln">12</span><span class="kw">void</span> <span class="fn">loop</span>() {</span>
+<span class="code-line"><span class="ln">13</span>  <span class="kw">int</span> <span class="var">lightValue</span> = <span class="fn">analogRead</span>(<span class="var">ldrPin</span>);</span>
+<span class="code-line"><span class="ln">14</span></span>
+<span class="code-line"><span class="ln">15</span>  <span class="cm">// Invert: bright → dim LED, dark → bright LED</span></span>
+<span class="code-line"><span class="ln">16</span>  <span class="kw">int</span> <span class="var">brightness</span> = <span class="fn">map</span>(<span class="var">lightValue</span>, <span class="num">0</span>, <span class="num">1023</span>, <span class="num">255</span>, <span class="num">0</span>);</span>
+<span class="code-line"><span class="ln">17</span>  <span class="var">brightness</span> = <span class="fn">constrain</span>(<span class="var">brightness</span>, <span class="num">0</span>, <span class="num">255</span>);</span>
+<span class="code-line"><span class="ln">18</span></span>
+<span class="code-line"><span class="ln">19</span>  <span class="fn">analogWrite</span>(<span class="var">ledPin</span>, <span class="var">brightness</span>);</span>
+<span class="code-line"><span class="ln">20</span></span>
+<span class="code-line"><span class="ln">21</span>  Serial.<span class="fn">print</span>(<span class="str">"Light Sensor Value: "</span>);</span>
+<span class="code-line"><span class="ln">22</span>  Serial.<span class="fn">print</span>(<span class="var">lightValue</span>);</span>
+<span class="code-line"><span class="ln">23</span>  Serial.<span class="fn">print</span>(<span class="str">" | LED Brightness: "</span>);</span>
+<span class="code-line"><span class="ln">24</span>  Serial.<span class="fn">println</span>(<span class="var">brightness</span>);</span>
+<span class="code-line"><span class="ln">25</span></span>
+<span class="code-line"><span class="ln">26</span>  <span class="fn">delay</span>(<span class="num">200</span>);</span>
+<span class="code-line"><span class="ln">27</span>}</span>
+          </div>
+        </div>
+        <!-- SIMULATE -->
+        <div id="p4-sim" class="tab-panel">
+          <div class="sim-panel">
+            <div class="sim-title">▶ Interactive Simulation</div>
+            <div class="sim-screen" id="p4-serial">Light Sensor Value: 512 | LED Brightness: 127</div>
+            <div class="sim-row" style="margin-top:.8rem">
+              <span>☀️ Light Level:</span>
+              <div class="sim-bar-wrap"><div class="sim-bar" id="p4-light-bar" style="width:50%;background:linear-gradient(90deg,#fbbf24,#f0ead8)"></div></div>
+              <span id="p4-ldr-val">512</span>
+            </div>
+            <input type="range" id="p4-slider" min="0" max="1023" value="512" oninput="p4Update(this.value)" style="width:100%;accent-color:var(--gold);margin:.6rem 0;cursor:none;">
+            <div class="sim-row">
+              <span>💡 LED Brightness:</span>
+              <div class="sim-bar-wrap"><div class="sim-bar" id="p4-bri-bar" style="width:50%;background:linear-gradient(90deg,#fbbf24,#fff)"></div></div>
+              <span id="p4-bri-val">127</span>
+            </div>
+            <div class="sim-row" style="margin-top:.6rem">
+              <span>LED Visual:</span>
+              <div id="p4-led-glow" style="width:24px;height:24px;border-radius:50%;background:#3a3000;transition:all .4s;box-shadow:none;margin-left:.5rem;"></div>
+            </div>
+            <div style="font-size:.6rem;color:var(--muted);margin-top:.6rem">← Drag slider: right = bright room → LED dims | left = dark room → LED brightens</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROBOTICS SUBJECT -->
+<section id="robotics" class="rob-section">
+  <div class="eyebrow rv">02 — Subject Details</div>
+  <h2 class="rv d1">The science of<br><em>Robotics</em></h2>
+  <div class="rob-layout">
+    <div class="rob-intro rv d2">
+      <p>Robotics unites <strong>mechanical engineering</strong>, <strong>electronics</strong>, and <strong>computer science</strong> into a discipline focused on building machines that interact intelligently with the physical world.</p>
+      <p>My projects cover the embedded layer — firmware that connects digital logic to real-world sensors and actuators. Each project demonstrates a distinct robotics sub-skill.</p>
+      <div class="f-tags">
+        <span class="f-tag">Arduino C++</span><span class="f-tag">Sensors</span>
+        <span class="f-tag">Automation</span><span class="f-tag">PWM</span>
+        <span class="f-tag">Wokwi</span><span class="f-tag">IoT</span>
+      </div>
+    </div>
+    <div class="modules rv d3">
+      <div class="module"><div class="mod-code">MOD 01</div><div><div class="mod-title">Sensors &amp; Actuators</div><div class="mod-desc">PIR, LDR, HC-SR04 — digital, analog, and ultrasonic sensing. Output through LEDs, buzzers, relays, and LCD displays.</div></div></div>
+      <div class="module"><div class="mod-code">MOD 02</div><div><div class="mod-title">Microcontroller Programming</div><div class="mod-desc">Arduino C++ — GPIO, analogRead/Write, PWM, serial comms, timing and delay management on constrained hardware.</div></div></div>
+      <div class="module"><div class="mod-code">MOD 03</div><div><div class="mod-title">Automation &amp; Control</div><div class="mod-desc">Threshold logic, relay switching, feedback loops. Applied in water level control and auto-brightness systems.</div></div></div>
+      <div class="module"><div class="mod-code">MOD 04</div><div><div class="mod-title">Simulation &amp; Prototyping</div><div class="mod-desc">Wokwi digital twin simulation — place components, write firmware, observe serial output before physical builds.</div></div></div>
+      <div class="module"><div class="mod-code">MOD 05</div><div><div class="mod-title">Human-Facing Interfaces</div><div class="mod-desc">16×2 LCD via LiquidCrystal library, serial monitor logging, LED status indicators — communicating state clearly.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="eyebrow rv">03 — Skills</div>
+  <h2 class="rv d1">Technical <em>capabilities</em></h2>
+  <div class="sk-grid" id="skillGrid">
+    <div class="sk-block rv"><div class="sk-name">Arduino / C++</div><div class="sk-bar"><div class="sk-fill" data-w="90"></div></div><div class="sk-pct">90%</div></div>
+    <div class="sk-block rv d1"><div class="sk-name">PIR Motion Sensing</div><div class="sk-bar"><div class="sk-fill" data-w="88"></div></div><div class="sk-pct">88%</div></div>
+    <div class="sk-block rv d2"><div class="sk-name">Ultrasonic (HC-SR04)</div><div class="sk-bar"><div class="sk-fill" data-w="84"></div></div><div class="sk-pct">84%</div></div>
+    <div class="sk-block rv"><div class="sk-name">LDR / Analog Sensing</div><div class="sk-bar"><div class="sk-fill" data-w="86"></div></div><div class="sk-pct">86%</div></div>
+    <div class="sk-block rv d1"><div class="sk-name">LCD &amp; Display Output</div><div class="sk-bar"><div class="sk-fill" data-w="82"></div></div><div class="sk-pct">82%</div></div>
+    <div class="sk-block rv d2"><div class="sk-name">Wokwi Simulation</div><div class="sk-bar"><div class="sk-fill" data-w="92"></div></div><div class="sk-pct">92%</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="c-inner">
+    <div class="eyebrow rv" style="justify-content:center">04 — Contact</div>
+    <h2 class="rv d1" style="font-size:clamp(1.8rem,4vw,3rem)">Open to <em>collaboration</em><br>and new challenges</h2>
+    <p class="c-sub rv d2">Robotics projects, embedded systems, Arduino circuits — let's build something together.</p>
+    <a href="mailto:amlek@email.com" class="c-email rv d3">amlek@email.com</a>
+    <div class="soc-row rv d4">
+      <a href="https://wokwi.com/projects/458379522403678209" target="_blank" class="soc-a">P1 — PIR Detector</a>
+      <a href="https://wokwi.com/projects/457101324157519873" target="_blank" class="soc-a">P2 — Home Security</a>
+      <a href="https://wokwi.com/projects/457050155667043329" target="_blank" class="soc-a">P3 — Water Level</a>
+      <a href="https://wokwi.com/projects/458379892087600129" target="_blank" class="soc-a">P4 — LDR Brightness</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Amlek Chirayath Davis</span>
+  <span>Robotics &amp; Embedded Systems</span>
+  <span>Powered by Arduino &amp; Wokwi</span>
+</footer>
+
+<script>
+// ── Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+
+// ── Scroll reveal
+const rvs=document.querySelectorAll('.rv');
+new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});},{threshold:.1}).observe(document.documentElement);
+const rObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});},{threshold:.08});
+rvs.forEach(r=>rObs.observe(r));
+
+// ── Tab switcher
+function switchTab(el,proj,panel){
+  const card=el.closest('.proj-card');
+  card.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  card.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(proj+'-'+panel).classList.add('active');
+}
+
+// ── Skill bars
+const sObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.sk-fill').forEach((b,i)=>setTimeout(()=>{b.style.width=b.dataset.w+'%';},i*100));
+      sObs.unobserve(e.target);
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('#skillGrid').forEach(g=>sObs.observe(g));
+
+// ── Counters
+function cnt(el,t){let n=0;const s=t/45,tm=setInterval(()=>{n=Math.min(n+s,t);el.textContent=Math.round(n)+(t===200?'+':'');if(n>=t)clearInterval(tm);},28);}
+new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-c]').forEach(el=>cnt(el,+el.dataset.c));e.target._done=true;}});},{threshold:.5}).observe(document.querySelector('.stats-bar'));
+
+// ══ SIM: P1 — PIR
+let p1Log=[];
+function p1Trigger(motion){
+  const led=document.getElementById('p1-led-vis');
+  const stat=document.getElementById('p1-pir-status');
+  const ser=document.getElementById('p1-serial');
+  if(motion){
+    led.className='sim-led on';stat.style.color='#fbbf24';stat.textContent='Motion Detected!';
+    p1Log.unshift('Motion detected - LED ON');
+  } else {
+    led.className='sim-led off';stat.style.color='var(--muted)';stat.textContent='No Motion';
+    p1Log.unshift('No motion detected - LED OFF');
+  }
+  p1Log=p1Log.slice(0,6);
+  ser.innerHTML=p1Log.join('<br>');
+}
+
+// ══ SIM: P2 — Home Security
+let p2Blink=null;
+function p2Trigger(intruder){
+  const lcd=document.getElementById('p2-lcd');
+  const led=document.getElementById('p2-led');
+  const buz=document.getElementById('p2-buz');
+  clearInterval(p2Blink);
+  if(intruder){
+    led.className='sim-led on-red';buz.style.color='#f87171';buz.textContent='ON 🔊';
+    let t=true;
+    p2Blink=setInterval(()=>{
+      lcd.innerHTML=t?'!! INTRUDER !!  <br>Motion Detected ':'                <br>                ';
+      t=!t;
+    },600);
+    lcd.innerHTML='!! INTRUDER !!  <br>Motion Detected ';
+  } else {
+    clearInterval(p2Blink);
+    led.className='sim-led off';buz.style.color='var(--muted)';buz.textContent='OFF';
+    lcd.innerHTML='System Armed    <br>No Motion       ';
+  }
+}
+
+// ══ SIM: P3 — Water Level
+function p3Update(v){
+  v=parseInt(v);
+  const bar=document.getElementById('p3-bar');
+  const pct=document.getElementById('p3-pct');
+  const lcd=document.getElementById('p3-lcd');
+  const relay=document.getElementById('p3-relay');
+  const led=document.getElementById('p3-led');
+  bar.style.width=v+'%';pct.textContent=v+'%';
+  let motor='';
+  if(v<30){motor='Motor: ON  ';relay.style.color='#4ade80';relay.textContent='ON ✅';led.className='sim-led on';}
+  else if(v>90){motor='Motor: OFF ';relay.style.color='var(--muted)';relay.textContent='OFF';led.className='sim-led off';}
+  else{motor=v>50?'Motor: OFF ':'Motor: ON  ';
+    if(v>50){relay.style.color='var(--muted)';relay.textContent='OFF';led.className='sim-led off';}
+    else{relay.style.color='#4ade80';relay.textContent='ON ✅';led.className='sim-led on';}
+  }
+  lcd.innerHTML='Level: '+v+'%      <br>'+motor;
+}
+
+// ══ SIM: P4 — LDR
+function p4Update(v){
+  v=parseInt(v);
+  const brightness=Math.max(0,Math.min(255,Math.round(255-(v/1023*255))));
+  document.getElementById('p4-light-bar').style.width=(v/1023*100)+'%';
+  document.getElementById('p4-ldr-val').textContent=v;
+  document.getElementById('p4-bri-bar').style.width=(brightness/255*100)+'%';
+  document.getElementById('p4-bri-val').textContent=brightness;
+  document.getElementById('p4-serial').innerHTML='Light Sensor Value: '+v+' | LED Brightness: '+brightness;
+  const glow=document.getElementById('p4-led-glow');
+  const pct=brightness/255;
+  const r=Math.round(58+pct*180),g=Math.round(45+pct*165),b=0;
+  glow.style.background=`rgb(${r},${g},${b})`;
+  glow.style.boxShadow=pct>0.1?`0 0 ${Math.round(pct*20)}px rgba(251,191,36,${pct})`:'none';
+}
+</script>
+</body>
+</html>
